@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using EVEStandard.Enumerations;
 using EVEStandard.Models;
 
-namespace EVEAsset.Navigator.Interfaces
+namespace Navigator.Interfaces
 {
     public interface IUniverseCache
     {

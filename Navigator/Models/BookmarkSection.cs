@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using EVEAsset.Navigator.Cache;
 using EVEStandard.Models;
+using Navigator.Cache;
 
-namespace EVEAsset.Navigator.Models
+namespace Navigator.Models
 {
     public class BookmarkSection
     {

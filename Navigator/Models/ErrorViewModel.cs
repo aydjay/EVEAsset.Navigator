@@ -1,6 +1,4 @@
-using System;
-
-namespace EVEAsset.Navigator.Models
+namespace Navigator.Models
 {
     public class ErrorViewModel
     {

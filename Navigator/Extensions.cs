@@ -4,7 +4,7 @@ using System.Security.Claims;
 using EVEStandard.Models.API;
 using EVEStandard.Models.SSO;
 
-namespace EVEAsset.Navigator
+namespace Navigator
 {
     public static class Extensions
     {

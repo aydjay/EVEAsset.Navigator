@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace EVEAsset.Navigator.Models
+namespace Navigator.Models
 {
     public class Route
     {

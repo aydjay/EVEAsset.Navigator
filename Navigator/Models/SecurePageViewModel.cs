@@ -1,4 +1,4 @@
-namespace EVEAsset.Navigator.Models
+namespace Navigator.Models
 {
     public class SecurePageViewModel
     {

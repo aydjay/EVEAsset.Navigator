@@ -1,4 +1,4 @@
-﻿@model BookmarkViewModel
+﻿@model Navigator.Models.BookmarkViewModel
 
 @{
     ViewData["Title"] = "Bookmark";
@@ -11,11 +11,11 @@
 }
 else
 {
-    using (Html.BeginForm("Index", "Bookmark"))
+    @*using (Html.BeginForm("Index", "Bookmark"))
     {
         <div class="form-group">
-            <select asp-for="System" asp-items="Model.Systems" class="form-control"  />
-            <button onclick="SUBMIT" asp-action="Index" asp-controller="Bookmark" />
+            <select asp-for="System" asp-items="Model.Systems" class="form-control"  />*@
+            @*<button onclick="SUBMIT" asp-action="Index" asp-controller="Bookmark" />*@
             <br/>
             <nav>
                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -33,6 +33,6 @@ else
                 </div>
 
             </div>
-        </div>
-    }
+        @*</div>
+    }*@
 }

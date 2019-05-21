@@ -1,8 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using EVEAsset.Navigator.Models;
+using Navigator.Models;
 
-namespace EVEAsset.Navigator.Controllers
+namespace Navigator.Controllers
 {
     public class HomeController : Controller
     {

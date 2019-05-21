@@ -1,9 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
-using EVEAsset.Navigator.Cache;
-using EVEAsset.Navigator.Controllers;
-using EVEAsset.Navigator.Factory;
 using EVEStandard;
 using EVEStandard.Enumerations;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,12 +7,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Navigator.Factory;
 using Newtonsoft.Json;
 
-namespace EVEAsset.Navigator
+namespace Navigator
 {
     public class Startup
     {

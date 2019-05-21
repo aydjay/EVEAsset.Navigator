@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EVEAsset.Navigator.Consts;
-using EVEAsset.Navigator.Interfaces;
 using EVEStandard;
 using EVEStandard.Enumerations;
 using EVEStandard.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Navigator.Consts;
+using Navigator.Interfaces;
 
-namespace EVEAsset.Navigator.Cache
+namespace Navigator.Cache
 {
     public class UniverseCache : IUniverseCache
     {

@@ -1,9 +1,9 @@
-﻿using EVEAsset.Navigator.Cache;
-using EVEStandard;
+﻿using EVEStandard;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Navigator.Cache;
 
-namespace EVEAsset.Navigator.Factory
+namespace Navigator.Factory
 {
     public static class JumpCacheFactory
     {

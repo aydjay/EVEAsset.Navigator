@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace EVEAsset.Navigator.Consts
+﻿namespace Navigator.Consts
 {
     public static class MemoryCacheKeys
     {

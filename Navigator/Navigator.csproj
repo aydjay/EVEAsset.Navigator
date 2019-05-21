@@ -16,6 +16,9 @@
 
   <ItemGroup>
     <Folder Include="Views\Secure\" />
+    <Folder Include="Views\Home\" />
+    <Folder Include="Views\Bookmark\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
 
 </Project>

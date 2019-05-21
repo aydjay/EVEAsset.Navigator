@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using EVEAsset.Navigator.Interfaces;
-using EVEAsset.Navigator.Repositories;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Navigator.Interfaces;
+using Navigator.Repositories;
 
-namespace EVEAsset.Navigator.Models
+namespace Navigator.Models
 {
     public class BookmarkViewModel
     {
@@ -19,7 +19,7 @@ namespace EVEAsset.Navigator.Models
             _repository = new StaticDataRepository(PersonalBookmarks.UniverseCache);
 
             System = system;
-            Systems.First(x =>x.Value == system).Selected = true;
+            //Systems.First(x =>x.Value == system).Selected = true;
 
 
         }

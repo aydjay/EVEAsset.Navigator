@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using EVEAsset.Navigator.Interfaces;
 using EVEStandard.Enumerations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Navigator.Interfaces;
 
-namespace EVEAsset.Navigator.Repositories
+namespace Navigator.Repositories
 {
     public class StaticDataRepository : IStaticDataRepository
     {

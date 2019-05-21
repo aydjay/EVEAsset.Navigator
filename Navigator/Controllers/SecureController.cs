@@ -1,10 +1,10 @@
 ﻿using System.Threading.Tasks;
-using EVEAsset.Navigator.Models;
 using EVEStandard;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Navigator.Models;
 
-namespace EVEAsset.Navigator.Controllers
+namespace Navigator.Controllers
 {
     [Authorize]
     public class SecureController : Controller

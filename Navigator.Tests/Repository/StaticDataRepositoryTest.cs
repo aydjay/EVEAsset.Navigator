@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using System.Linq;
-using EVEAsset.Navigator.Interfaces;
-using EVEAsset.Navigator.Repositories;
 using EVEStandard.Enumerations;
 using EVEStandard.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Navigator.Interfaces;
+using Navigator.Repositories;
 
-namespace EVEAsset.Navigator.Tests.Repository
+namespace Navigator.Tests.Repository
 {
     [TestClass]
     [TestCategory("Repository")]

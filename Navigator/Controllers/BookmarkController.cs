@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EVEAsset.Navigator.Cache;
-using EVEAsset.Navigator.Models;
 using EVEStandard;
-using EVEStandard.Models;
 using EVEStandard.Models.API;
 using Microsoft.AspNetCore.Mvc;
+using Navigator.Cache;
+using Navigator.Models;
 
-namespace EVEAsset.Navigator.Controllers
+namespace Navigator.Controllers
 {
     public class BookmarkController : Controller
     {

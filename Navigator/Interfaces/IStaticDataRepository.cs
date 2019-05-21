@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace EVEAsset.Navigator.Interfaces
+namespace Navigator.Interfaces
 {
     internal interface IStaticDataRepository  
     {

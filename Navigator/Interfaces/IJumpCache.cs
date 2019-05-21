@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace EVEAsset.Navigator.Interfaces
+namespace Navigator.Interfaces
 {
     public interface IJumpCache
     {

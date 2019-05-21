@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using EVEAsset.Navigator.Cache;
 using EVEStandard;
 using EVEStandard.Enumerations;
 using EVEStandard.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
+using Navigator.Cache;
 using Newtonsoft.Json;
 
-namespace EVEAsset.Navigator.Factory
+namespace Navigator.Factory
 {
     public static class UniverseCacheFactory
     {
