@@ -1,0 +1,107 @@
+﻿@model BookmarkSection
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+@functions {
+
+    /// <summary>
+    ///     Converts an universe ID into the human readable version by checking the application
+    ///     memory cache
+    /// </summary>
+    /// <param name="id">Universe ID</param>
+    /// <returns>Unknown or the real name</returns>
+    private async Task<string> GetHumanReadable(int id)
+    {
+        return await Model.UniverseCache.GetNameForId(id);
+    }
+
+    private async Task<int> GetJumps(int fromId, int toId)
+    {
+     
+        return await Model.JumpCache.GetJumpsDistance(fromId, toId);
+    }
+
+}
+
+@if (Model.Bookmarks.Any() == false)
+{
+    <h2>You don't have any bookmarks in this section.</h2>
+}
+else
+{
+    var accordionId = $"accordion{Model.Bookmarks.First().BookmarkId}";
+    var accordionDataParent = $"#{accordionId}";
+
+    <div class="accordion" id="@accordionId">
+
+        @foreach (var folder in Model.BookmarkFolders)
+        {
+            <div class="card">
+
+                @{
+                    var headingId = "heading" + folder.FolderId;
+                    var collapseId = "collapse" + folder.FolderId;
+                    var collapseDataTarget = "#collapse" + folder.FolderId;
+                }
+                <div class="card-header" id=@headingId>
+                    <h2 class="mb-0">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="@collapseDataTarget" aria-expanded="false" aria-controls="@collapseId">
+                            @folder.Name
+                        </button>
+                    </h2>
+                </div>
+
+                <div id="@collapseId" class="collapse show" aria-labelledby=@headingId data-parent="@accordionDataParent">
+                    <div class="card-body">
+                        <table class="table .table-hover">
+                            <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">System</th>
+                                <th scope="col">Created</th>
+                                <th scope="col">Owner</th>
+                                <th scope="col">Notes</th>
+                                <th scope="col">Jumps</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach (var bookmark in Model.Bookmarks.Where(x => x.FolderId == folder.FolderId))
+                            {
+                                <tr>
+
+                                    <td> @bookmark.Label </td>
+                                    <td>
+                                        @{
+                                            var locationName = await GetHumanReadable(bookmark.LocationId);
+                                        }
+                                        @*Todo: Make this open the system on dotlan.*@
+                                        @locationName
+                                    </td>
+                                    <td> @bookmark.Created </td>
+                                    <td>
+                                        @{
+                                            var charName = await GetHumanReadable(bookmark.CreatorId);
+                                        }
+
+                                        @charName
+                                    </td>
+                                    <td> @bookmark.Notes </td>
+                                    <td>
+                                        @{
+                                            var jumps = await GetJumps(30000142, bookmark.LocationId);
+                                        }
+
+                                        @jumps
+                                    </td>
+                                </tr>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        }
+    </div>
+}
