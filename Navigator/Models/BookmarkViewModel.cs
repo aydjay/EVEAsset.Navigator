@@ -15,13 +15,9 @@ namespace Navigator.Models
         {
             PersonalBookmarks = personalBookmarks;
             CorpBookmarks = corpBookmarks;
+            System = system;
 
             _repository = new StaticDataRepository(PersonalBookmarks.UniverseCache);
-
-            System = system;
-            //Systems.First(x =>x.Value == system).Selected = true;
-
-
         }
 
         public BookmarkSection PersonalBookmarks { get; set; }
@@ -29,7 +25,8 @@ namespace Navigator.Models
 
         [Display(Name = "Solar System")]
         public IEnumerable<SelectListItem> Systems => _repository.GetAllSystems();
-
+        
+        [Display(Name = "Solar System")]
         public string System { get; set; }
     }
 }

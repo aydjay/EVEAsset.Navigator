@@ -4,6 +4,7 @@ using EVEStandard.Enumerations;
 using EVEStandard.Models;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Navigator.Consts;
 using Navigator.Interfaces;
 using Navigator.Repositories;
 
@@ -28,7 +29,7 @@ namespace Navigator.Tests.Repository
         {
             return new List<UniverseIdsToNames>
             {
-                new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = 1, Name = "Jita"},
+                new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = int.Parse(SolarSystemId.Jita), Name = "Jita"},
                 new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = 1, Name = "J130719"},
                 new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = 1, Name = "J230559"},
                 new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = 1, Name = "Thera"},

@@ -18,7 +18,6 @@
 
     private async Task<int> GetJumps(int fromId, int toId)
     {
-     
         return await Model.JumpCache.GetJumpsDistance(fromId, toId);
     }
 
@@ -46,7 +45,7 @@ else
                 }
                 <div class="card-header" id=@headingId>
                     <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="@collapseDataTarget" aria-expanded="false" aria-controls="@collapseId">
+                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="@collapseDataTarget" aria-expanded="true" aria-controls="@collapseId">
                             @folder.Name
                         </button>
                     </h2>

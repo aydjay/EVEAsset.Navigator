@@ -6,6 +6,7 @@ using EVEStandard;
 using EVEStandard.Models.API;
 using Microsoft.AspNetCore.Mvc;
 using Navigator.Cache;
+using Navigator.Consts;
 using Navigator.Models;
 
 namespace Navigator.Controllers
@@ -23,7 +24,7 @@ namespace Navigator.Controllers
             _jumpCache = jumpCache;
         }
 
-        public async Task<IActionResult> Index(string system = "Jita")
+        public async Task<IActionResult> Index(string system = SolarSystemId.Jita)
         {
             AuthDTO auth;
             try

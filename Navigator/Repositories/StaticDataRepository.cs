@@ -13,8 +13,8 @@ namespace Navigator.Repositories
         private Regex _regex;
         public StaticDataRepository(IUniverseCache universeCache)
         {
-            
             _regex = new Regex(@"J\d{6}|Thera");
+
             _universeCache = universeCache;
         }
 
