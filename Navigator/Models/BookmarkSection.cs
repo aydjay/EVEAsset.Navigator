@@ -1,31 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using EVEStandard.Models;
-using Navigator.Cache;
+using Microsoft.Extensions.DependencyInjection;
+using Navigator.Interfaces;
 
 namespace Navigator.Models
 {
     public class BookmarkSection
     {
-        public BookmarkSection(List<BookmarkFolder> folders, List<Bookmark> bookmarks, UniverseCache universeCache, JumpCache jumpCache)
+        public BookmarkSection(IServiceProvider provider, List<BookmarkFolder> folders, List<Bookmark> bookmarks, int system)
         {
             BookmarkFolders = folders;
             Bookmarks = bookmarks;
+            System = system;
 
-            UniverseCache = universeCache;
-            JumpCache = jumpCache;
-
-            //await JumpCache.PopulateJumpCache(bookmarks);
-
+            UniverseCache = provider.GetService<IUniverseCache>();
+            JumpCache = provider.GetService<IJumpCache>();
         }
 
         public List<BookmarkFolder> BookmarkFolders { get; set; }
 
         public List<Bookmark> Bookmarks { get; set; }
 
-        public UniverseCache UniverseCache { get; set; }
+        public IUniverseCache UniverseCache { get; set; }
 
-        public JumpCache JumpCache { get; set; }
+        public IJumpCache JumpCache { get; set; }
 
-        public string System { get; set; }
+        public int System { get; set; }
     }
 }

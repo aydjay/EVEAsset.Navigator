@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EVEStandard;
@@ -7,6 +8,7 @@ using EVEStandard.Models;
 using Microsoft.Extensions.Caching.Memory;
 using Navigator.Consts;
 using Navigator.Interfaces;
+using Newtonsoft.Json;
 
 namespace Navigator.Cache
 {
@@ -15,7 +17,7 @@ namespace Navigator.Cache
         private const string UnknownId = "Unknown";
         private readonly EVEStandardAPI _api;
         private readonly IMemoryCache _cache;
-        
+
         public UniverseCache(IMemoryCache cache, EVEStandardAPI api)
         {
             _cache = cache;
@@ -28,6 +30,8 @@ namespace Navigator.Cache
                 {
                     Priority = CacheItemPriority.NeverRemove
                 });
+
+                _universeMapping.AddRange(GetSolarSystems());
             }
         }
 
@@ -43,7 +47,7 @@ namespace Navigator.Cache
                     idsToQuery.Add(id);
                 }
             }
-            
+
             if (idsToQuery.Count > 0)
             {
                 var affiliation = await _api.Universe.GetNamesAndCategoriesFromIdsV3Async(idsToQuery);
@@ -67,8 +71,22 @@ namespace Navigator.Cache
             }
 
             return Task.FromResult(_universeMapping.First(x => x.Id == id).Name);
-        }        
-        
+        }
+
+        public void PrepopulateData(IEnumerable<UniverseIdsToNames> solarSystems)
+        {
+            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
+
+            _universeMapping.AddRange(solarSystems);
+        }
+
+        public IEnumerable<UniverseIdsToNames> GetAllByCategory(CategoryEnum category)
+        {
+            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
+
+            return _universeMapping.Where(x => x.Category == CategoryEnum.solar_system);
+        }
+
         public Task<int> GetIdFromName(string name)
         {
             var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
@@ -81,18 +99,24 @@ namespace Navigator.Cache
             return Task.FromResult(_universeMapping.First(x => x.Name == name).Id);
         }
 
-        public void PrepopulateData(IEnumerable<UniverseIdsToNames> solarSystems)
+        private static IEnumerable<UniverseIdsToNames> GetSolarSystems()
         {
-            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
+            var systems = JsonConvert.DeserializeObject<List<SolarSystem>>(File.ReadAllText(".\\Factory\\Data\\universe.json"));
 
-            _universeMapping.AddRange(solarSystems);
+            var rtnSystems = new List<UniverseIdsToNames>();
+
+            foreach (var solarSystem in systems)
+            {
+                rtnSystems.Add(new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = solarSystem.solarSystemID, Name = solarSystem.solarSystemName});
+            }
+
+            return rtnSystems;
         }
-            
-        public IEnumerable<UniverseIdsToNames> GetAllByCategory(CategoryEnum category)
-        {
-            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
 
-            return _universeMapping.Where(x => x.Category == CategoryEnum.solar_system);
+        internal class SolarSystem
+        {
+            public string solarSystemName { get; set; }
+            public int solarSystemID { get; set; }
         }
     }
 }

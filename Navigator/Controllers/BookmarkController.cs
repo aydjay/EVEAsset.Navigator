@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 using EVEStandard;
 using EVEStandard.Models.API;
 using Microsoft.AspNetCore.Mvc;
-using Navigator.Cache;
+using Microsoft.Extensions.DependencyInjection;
 using Navigator.Consts;
+using Navigator.Interfaces;
 using Navigator.Models;
 
 namespace Navigator.Controllers
@@ -14,14 +15,16 @@ namespace Navigator.Controllers
     public class BookmarkController : Controller
     {
         private readonly EVEStandardAPI _api;
-        private readonly UniverseCache _universeCache;
-        private readonly JumpCache _jumpCache;
+        private readonly IJumpCache _jumpCache;
+        private readonly IServiceProvider _provider;
+        private readonly IUniverseCache _universeCache;
 
-        public BookmarkController(EVEStandardAPI api, UniverseCache universeCache, JumpCache jumpCache)
+        public BookmarkController(IServiceProvider provider)
         {
-            _api = api;
-            _universeCache = universeCache;
-            _jumpCache = jumpCache;
+            _provider = provider;
+            _api = (EVEStandardAPI) provider.GetService(typeof(EVEStandardAPI));
+            _universeCache = provider.GetService<IUniverseCache>();
+            _jumpCache = provider.GetService<IJumpCache>();
         }
 
         public async Task<IActionResult> Index(string system = SolarSystemId.Jita)
@@ -37,14 +40,17 @@ namespace Navigator.Controllers
             }
 
             //Grab bookmarks
-            var personalBookmarkSection = await GetPersonalBookmarkSection();
+            var personalBookmarkSection = await GetPersonalBookmarkSection(int.Parse(system));
             var universeIds = GetIdsForCaching(personalBookmarkSection);
 
-            var corporationBookmarkSection = await GetCorporationBookmarkSection();
+            var corporationBookmarkSection = await GetCorporationBookmarkSection(int.Parse(system));
             universeIds.AddRange(GetIdsForCaching(corporationBookmarkSection));
 
             //Query ESI for real name
             await _universeCache.PopulateIdCache(universeIds.Distinct());
+
+            await SubmitSystemsToRouteCache(personalBookmarkSection, int.Parse(system));
+            await SubmitSystemsToRouteCache(corporationBookmarkSection, int.Parse(system));
 
             var viewModel = new BookmarkViewModel(personalBookmarkSection, corporationBookmarkSection, system);
 
@@ -57,25 +63,35 @@ namespace Navigator.Controllers
             return section.Bookmarks.DistinctBy(x => x.CreatorId).Select(x => x.CreatorId).ToList();
         }
 
-        private async Task<BookmarkSection> GetPersonalBookmarkSection()
+        private async Task<BookmarkSection> GetPersonalBookmarkSection(int system)
         {
             var bookmarks = await _api.Bookmarks.ListBookmarksV2Async(User.EsiAuth());
             var folders = await _api.Bookmarks.ListBookmarkFoldersV2Async(User.EsiAuth());
 
-            var section = new BookmarkSection(folders.Model, bookmarks.Model, _universeCache, _jumpCache);
+            var section = new BookmarkSection(_provider, folders.Model, bookmarks.Model, system);
 
             return section;
         }
 
-        private async Task<BookmarkSection> GetCorporationBookmarkSection()
+        private async Task<BookmarkSection> GetCorporationBookmarkSection(int system)
         {
             var auth = User.EsiAuth();
             var charInfo = await _api.Character.GetCharacterPublicInfoV4Async(auth.CharacterId);
 
             var bookmarks = await _api.Bookmarks.ListCorporationBookmarksV1Async(auth, charInfo.Model.CorporationId);
             var folders = await _api.Bookmarks.ListCorporationBookmarkFoldersV1Async(auth, charInfo.Model.CorporationId);
-            var section = new BookmarkSection(folders.Model, bookmarks.Model, _universeCache, _jumpCache);
+            var section = new BookmarkSection(_provider, folders.Model, bookmarks.Model, system);
             return section;
+        }
+
+        private async Task<int> SubmitSystemsToRouteCache(BookmarkSection section, int toSystemId)
+        {
+            foreach (var bookmark in section.Bookmarks)
+            {
+                await _jumpCache.PopulateJumpCache(bookmark.LocationId, toSystemId);
+            }
+
+            return 0;
         }
     }
 }

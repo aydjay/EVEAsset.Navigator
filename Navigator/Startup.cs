@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Navigator.Factory;
+using Navigator.Cache;
+using Navigator.Interfaces;
 using Newtonsoft.Json;
 
 namespace Navigator
@@ -55,15 +56,14 @@ namespace Navigator
             // Register with DI container
             services.AddSingleton(esiClient);
 
-
             // Session is required 
             services.AddSession();
-            
+
             services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton(UniverseCacheFactory.Build(services));
-            services.AddSingleton(JumpCacheFactory.Build(services));
+            services.AddSingleton<IUniverseCache, UniverseCache>();
+            services.AddSingleton<IJumpCache, JumpCache>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,7 +93,6 @@ namespace Navigator
                     "default",
                     "{controller=Home}/{action=Index}/{id?}");
             });
-
         }
     }
 

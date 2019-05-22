@@ -88,10 +88,10 @@ else
                                     <td> @bookmark.Notes </td>
                                     <td>
                                         @{
-                                            var jumps = await GetJumps(30000142, bookmark.LocationId);
+                                            var jumps = await GetJumps(bookmark.LocationId, Model.System);
+                                            var text = @jumps == 0 ? "-" : jumps.ToString();
                                         }
-
-                                        @jumps
+                                        @text
                                     </td>
                                 </tr>
                             }
