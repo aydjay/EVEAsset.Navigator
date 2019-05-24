@@ -27,7 +27,7 @@ namespace Navigator.Controllers
             var locationInfo = await esiClient.Location.GetCharacterLocationV1Async(auth);
             var location = await esiClient.Universe.GetSolarSystemInfoV4Async(locationInfo.Model.SolarSystemId);
 
-            var model = new SecurePageViewModel
+            var model = new SecureViewModel
             {
                 CharacterName = characterInfo.Model.Name,
                 CorporationName = corporationInfo.Model.Name,

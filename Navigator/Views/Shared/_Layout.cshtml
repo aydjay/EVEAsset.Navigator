@@ -1,5 +1,4 @@
-﻿@using System.Security.Claims
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8"/>
@@ -15,73 +14,39 @@
               crossorigin="anonymous"
               integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
     </environment>
+
     <link rel="stylesheet" href="~/css/site.css"/>
+
+    <!-- Custom styles for this template from: https://github.com/BlackrockDigital/startbootstrap-simple-sidebar -->
+    <link href="~/css/simple-sidebar.css" rel="stylesheet">
+
+
 </head>
 <body>
-<header>
-    <div class="container">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
 
-            <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link"  asp-area="" asp-controller="Bookmark" asp-action="Index">Bookmarks</a>
-                    </li>
-                </ul>
+    <div class="d-flex" id="wrapper">
+
+        @await Html.PartialAsync("_Sidebar")
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            @await Html.PartialAsync("_Navbar")
+
+            <div class="container-fluid">
+                <partial name="_CookieConsentPartial" />
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
             </div>
+        </div>
 
-            <div class="mx-auto order-0">
-                <a class="navbar-brand mx-auto" asp-area="" asp-controller="Home" asp-action="Index">Navigator</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </div>
-
-            <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
-                <ul class="navbar-nav ml-auto">
-                    @if (!User.Identity.IsAuthenticated)
-                    {
-                        <li class="nav-item">
-                            <a asp-area="" asp-controller="Auth" asp-action="Login">
-                                <img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-white-small.png" alt="LOG IN with EVE Online"/>
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        var name = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value ?? "Unknown";
-                        var charId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value ?? "Unknown";
-                        var charImageUrl = $"https://image.eveonline.com/Character/{charId}_64.jpg";
-                        <li class="nav-item">
-                            <a class="nav-link " asp-area="" asp-controller="Secure" asp-action="Index">@name</a>
-                        </li>
-                        <a class="nav-item" asp-area="" asp-controller="Secure" asp-action="Index">
-                            <img src="@charImageUrl" alt="@name"/>
-                        </a>
-
-                        //todo: add character name and portrait neatly here, when they click on the portrait take it to an overview page.
-                        <li class="nav-item">
-                            <a class="btn btn-outline-success my-2 my-sm-0" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nav>
     </div>
-</header>
+    
+    @await Html.PartialAsync("_Footer")
 
-<div class="container">
-    <partial name="_CookieConsentPartial"/>
-    <main role="main" class="pb-3">
-        @RenderBody()
-    </main>
-</div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; @DateTime.Now.Year - EVEAsset.Navigator - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-    </div>
-</footer>
 
 <environment include="Development">
     <script src="~/lib/jquery/dist/jquery.js"></script>

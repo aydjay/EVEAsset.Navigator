@@ -1,6 +1,6 @@
 namespace Navigator.Models
 {
-    public class SecurePageViewModel
+    public class SecureViewModel
     {
         public string CharacterName { get; set; }
         public string CorporationName { get; set; }

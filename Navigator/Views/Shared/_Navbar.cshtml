@@ -1,0 +1,38 @@
+﻿@using System.Security.Claims
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="nav-item active">
+                    <a asp-area="" asp-controller="Auth" asp-action="Login">
+                        <img src="https://web.ccpgamescdn.com/eveonlineassets/developers/eve-sso-login-white-small.png" alt="LOG IN with EVE Online" />
+                    </a>
+                </li>
+            }
+            else
+            {
+                var name = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value ?? "Unknown";
+                var charId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value ?? "Unknown";
+                var charImageUrl = $"https://image.eveonline.com/Character/{charId}_64.jpg";
+                <li class="nav-item">
+                    <a class="nav-link " asp-area="" asp-controller="Secure" asp-action="Index">@name</a>
+                    <a class="nav-link" asp-area="" asp-controller="Auth" asp-action="Logout">Logout</a>
+                </li>
+
+                <div class="cii">
+                    <a asp-area="" asp-controller="Secure" asp-action="Index">
+                        <img src="@charImageUrl" alt="@name" class="rounded-circle" />
+                    </a>
+                </div>
+
+            }
+        </ul>
+    </div>
+</nav>
