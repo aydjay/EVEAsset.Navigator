@@ -19,10 +19,16 @@ namespace Navigator.Repositories
 
         public IEnumerable<SelectListItem> GetAllSystems()
         {
+            var systems = new List<SelectListItem>();
+
             foreach (var system in _universeCache.GetAllByCategory(CategoryEnum.solar_system).Where(x => !_solarSystemRepository.IsWormhole(x.Name)))
             {
-                yield return new SelectListItem(system.Name, system.Id.ToString());
+                systems.Add(new SelectListItem(system.Name, system.Id.ToString()));
             }
+
+            systems = systems.OrderBy(x => x.Text).ToList();
+
+            return systems;
         }
     }
 }
