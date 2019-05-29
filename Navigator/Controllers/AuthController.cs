@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using EVEStandard;
@@ -128,7 +127,7 @@ namespace Navigator.Controllers
             var accessToken = await esiClient.SSO.VerifyAuthorizationAsync(authorization);
             var character = await esiClient.SSO.GetCharacterDetailsAsync(accessToken.AccessToken);
 
-            await SignInAsync(accessToken, character);
+            await HttpContext.SignInAsync(accessToken, character);
 
             if (Guid.TryParse(state, out var stateGuid))
             {
@@ -137,36 +136,6 @@ namespace Navigator.Controllers
 
             var returnUrl = Encoding.ASCII.GetString(Base64UrlTextEncoder.Decode(state));
             return Redirect(returnUrl);
-        }
-
-        private async Task SignInAsync(AccessTokenDetails accessToken, CharacterDetails character)
-        {
-            if (accessToken == null)
-            {
-                throw new ArgumentNullException(nameof(accessToken));
-            }
-
-            if (character == null)
-            {
-                throw new ArgumentNullException(nameof(character));
-            }
-
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.NameIdentifier, character.CharacterId.ToString()),
-                new Claim(ClaimTypes.Name, character.CharacterName),
-                new Claim("AccessToken", accessToken.AccessToken),
-                new Claim("RefreshToken", accessToken.RefreshToken ?? ""),
-                new Claim("AccessTokenExpiry", accessToken.ExpiresUtc.ToString()),
-                new Claim("Scopes", character.Scopes)
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-
-            await HttpContext.SignInAsync(
-                CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity),
-                new AuthenticationProperties {IsPersistent = true, ExpiresUtc = DateTime.UtcNow.AddHours(24)});
         }
     }
 }

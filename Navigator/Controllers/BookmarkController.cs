@@ -32,7 +32,7 @@ namespace Navigator.Controllers
             AuthDTO auth;
             try
             {
-                auth = User.EsiAuth();
+                auth = User.GetAuth();
             }
             catch (UnauthorizedAccessException)
             {
@@ -65,8 +65,8 @@ namespace Navigator.Controllers
 
         private async Task<BookmarkSection> GetPersonalBookmarkSection(int system)
         {
-            var bookmarks = await _api.Bookmarks.ListBookmarksV2Async(User.EsiAuth());
-            var folders = await _api.Bookmarks.ListBookmarkFoldersV2Async(User.EsiAuth());
+            var bookmarks = await _api.Bookmarks.ListBookmarksV2Async(User.GetAuth());
+            var folders = await _api.Bookmarks.ListBookmarkFoldersV2Async(User.GetAuth());
 
             var section = new BookmarkSection(_provider, folders.Model, bookmarks.Model, system);
 
@@ -75,7 +75,7 @@ namespace Navigator.Controllers
 
         private async Task<BookmarkSection> GetCorporationBookmarkSection(int system)
         {
-            var auth = User.EsiAuth();
+            var auth = User.GetAuth();
             var charInfo = await _api.Character.GetCharacterPublicInfoV4Async(auth.CharacterId);
 
             var bookmarks = await _api.Bookmarks.ListCorporationBookmarksV1Async(auth, charInfo.Model.CorporationId);

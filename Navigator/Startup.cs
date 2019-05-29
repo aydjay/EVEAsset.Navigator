@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Navigator.Cache;
 using Navigator.Interfaces;
+using Navigator.MiddleWare;
 using Newtonsoft.Json;
 
 namespace Navigator
@@ -86,7 +87,7 @@ namespace Navigator
 
             app.UseAuthentication();
             app.UseSession();
-
+            app.UseMiddleware<EsiTokenRefreshMiddleware>();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

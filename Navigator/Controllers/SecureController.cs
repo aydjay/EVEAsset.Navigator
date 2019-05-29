@@ -19,7 +19,7 @@ namespace Navigator.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var auth = User.EsiAuth();
+            var auth = User.GetAuth();
 
             var characterInfo = await esiClient.Character.GetCharacterPublicInfoV4Async(auth.CharacterId);
             var corporationInfo = await esiClient.Corporation.GetCorporationInfoV4Async(characterInfo.Model.CorporationId);
