@@ -3,7 +3,7 @@ init:
   - git config --global core.autocrlf false
 install:
   - dotnet --version
-  - dotnet restore -r linux-arm
+  - dotnet restore
 build_script:
   - dotnet build
 after_build:
