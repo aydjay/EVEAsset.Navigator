@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigator", "Navigator\Navigator.csproj", "{5622E5B9-7BE5-4486-8DCE-39FB50E075EA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigator.Tests", "Navigator.Tests\Navigator.Tests.csproj", "{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigator.Tests", "Navigator.Tests\Navigator.Tests.csproj", "{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigator.DAL", "Navigator.DAL\Navigator.DAL.csproj", "{FC87654D-AF85-44AD-B205-A5C1476EF46A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC87654D-AF85-44AD-B205-A5C1476EF46A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC87654D-AF85-44AD-B205-A5C1476EF46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC87654D-AF85-44AD-B205-A5C1476EF46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC87654D-AF85-44AD-B205-A5C1476EF46A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
