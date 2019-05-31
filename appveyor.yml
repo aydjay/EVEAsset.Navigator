@@ -10,7 +10,7 @@ before_build:
 - appveyor-retry dotnet restore -v Minimal
 after_build:
   #Generates the publish folder for deployment
-  -dotnet publish -c Release -r linux-arm
+  - dotnet publish -c Release -r linux-arm
 artifacts:
   - path: Navigator\bin\Release\netcoreapp2.2\linux-arm\publish
 test:
