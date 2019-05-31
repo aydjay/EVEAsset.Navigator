@@ -14,4 +14,6 @@ after_build:
 artifacts:
   - path: Navigator\bin\Release\netcoreapp2.2\linux-arm\publish
 test:
-  - Navigator.Tests.dll
+  assemblies:
+    only:
+      - **\*.Tests.dll
