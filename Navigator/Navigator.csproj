@@ -5,6 +5,7 @@
     <UserSecretsId>ced1aa8f-b4ea-4c52-8a09-8792db7f591a</UserSecretsId>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Win32Resource />
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
   </PropertyGroup>
 
 
