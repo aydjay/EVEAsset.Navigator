@@ -1,13 +1,11 @@
 image: Visual Studio 2019
 init:
-  - git config --global core.autocrlf true
+  - git config --global core.autocrlf false
 install:
   - dotnet --version
-  - dotnet restore
+  - dotnet restore -r linux-arm
 build_script:
-- dotnet build
-before_build:
-- appveyor-retry dotnet restore -v Minimal
+  - dotnet build
 after_build:
   #Generates the publish folder for deployment
   - dotnet publish -c Release -r linux-arm
