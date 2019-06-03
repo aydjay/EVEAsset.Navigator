@@ -7,12 +7,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Navigator.Cache;
 using Navigator.DAL;
 using Navigator.Interfaces;
 using Navigator.MiddleWare;
+using Navigator.Repositories;
 using Newtonsoft.Json;
 
 namespace Navigator
@@ -64,11 +66,13 @@ namespace Navigator
             services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddSingleton<IUniverseCache, UniverseCache>();
-            services.AddSingleton<IJumpCache, JumpCache>();
+            var tranquilityContext = new TranquilityContext(new DbContextOptions<TranquilityContext>());
+            tranquilityContext.ConfigureServices(services, secrets.ConnectionString);
 
-            var tranquilityDbContext = new TranquilityContext(secrets.ConnectionString);
-            tranquilityDbContext.ConfigureServices(services);
+            services.AddSingleton(typeof(TranquilityContext), tranquilityContext);
+            services.AddSingleton<IUniverseCache, UniverseCache>();
+            services.AddSingleton<IStaticDataRepository, StaticDataRepository>();
+            services.AddSingleton<IJumpCache, JumpCache>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

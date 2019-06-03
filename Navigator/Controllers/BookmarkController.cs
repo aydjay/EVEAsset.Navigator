@@ -52,7 +52,7 @@ namespace Navigator.Controllers
             await SubmitSystemsToRouteCache(personalBookmarkSection, int.Parse(system));
             await SubmitSystemsToRouteCache(corporationBookmarkSection, int.Parse(system));
 
-            var viewModel = new BookmarkViewModel(personalBookmarkSection, corporationBookmarkSection, system);
+            var viewModel = new BookmarkViewModel(personalBookmarkSection, corporationBookmarkSection, system, _provider.GetService<IStaticDataRepository>());
 
             return View(viewModel);
         }

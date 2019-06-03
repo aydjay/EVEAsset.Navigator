@@ -1,6 +1,5 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.Extensions.DependencyInjection;
 using Navigator.DAL.SDE;
 
@@ -11,15 +10,10 @@ namespace Navigator.DAL
     {
         private string _connectionString;
 
-        public TranquilityContext(string connectionString, DbContextOptions<TranquilityContext> options)
+        public TranquilityContext(DbContextOptions<TranquilityContext> options)
             : base(options)
         {
-            _connectionString = connectionString;
-        }
 
-        public TranquilityContext(string connectionString)
-        {
-            _connectionString = connectionString;
         }
 
         public virtual DbSet<AgtAgentTypes> AgtAgentTypes { get; set; }
@@ -103,7 +97,7 @@ namespace Navigator.DAL
         public virtual DbSet<WarCombatZoneSystems> WarCombatZoneSystems { get; set; }
         public virtual DbSet<WarCombatZones> WarCombatZones { get; set; }
 
-        //Note: These tables look a) empty and b) no pk's set at all.
+        //NB: These tables look a) empty and b) no pk's set at all.
         // Unable to generate entity type for table 'evesde.industryActivitySkills'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityProducts'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityRaces'. Please see the warning messages.
@@ -112,7 +106,7 @@ namespace Navigator.DAL
         // Unable to generate entity type for table 'evesde.certSkills'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityMaterials'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.certMasteries'. Please see the warning messages.
-
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -2220,11 +2214,15 @@ namespace Navigator.DAL
                 entity.Property(e => e.FactionId).HasColumnName("factionID");
             });
         }
-        
-        public IServiceProvider ConfigureServices(IServiceCollection services)
-            => services.AddEntityFrameworkNpgsql()
+
+        public IServiceProvider ConfigureServices(IServiceCollection services, string connection)
+        {
+            _connectionString = connection;
+
+            return services.AddEntityFrameworkNpgsql()
                 .AddDbContext<TranquilityContext>()
                 .BuildServiceProvider();
+        }
     }
 }
 

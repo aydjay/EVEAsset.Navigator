@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,7 +7,9 @@ using EVEStandard;
 using EVEStandard.Enumerations;
 using EVEStandard.Models;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.DependencyInjection;
 using Navigator.Consts;
+using Navigator.DAL;
 using Navigator.Interfaces;
 using Newtonsoft.Json;
 
@@ -17,11 +20,13 @@ namespace Navigator.Cache
         private const string UnknownId = "Unknown";
         private readonly EVEStandardAPI _api;
         private readonly IMemoryCache _cache;
+        private readonly TranquilityContext _dbContext;
 
-        public UniverseCache(IMemoryCache cache, EVEStandardAPI api)
+        public UniverseCache(IServiceProvider services)
         {
-            _cache = cache;
-            _api = api;
+            _cache = services.GetService<IMemoryCache>();
+            _api = (EVEStandardAPI) services.GetService(typeof(EVEStandardAPI));
+            _dbContext = (TranquilityContext) services.GetService(typeof(TranquilityContext));
 
             if (!_cache.TryGetValue(MemoryCacheKeys.UniverseMapping, out List<UniverseIdsToNames> _universeMapping))
             {
@@ -99,24 +104,19 @@ namespace Navigator.Cache
             return Task.FromResult(_universeMapping.First(x => x.Name == name).Id);
         }
 
-        private static IEnumerable<UniverseIdsToNames> GetSolarSystems()
+        private IEnumerable<UniverseIdsToNames> GetSolarSystems()
         {
-            var systems = JsonConvert.DeserializeObject<List<SolarSystem>>(File.ReadAllText(".\\Factory\\Data\\universe.json"));
+            var systems = _dbContext.MapSolarSystems;
 
             var rtnSystems = new List<UniverseIdsToNames>();
 
             foreach (var solarSystem in systems)
             {
-                rtnSystems.Add(new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = solarSystem.solarSystemID, Name = solarSystem.solarSystemName});
+                rtnSystems.Add(new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = solarSystem.SolarSystemId, Name = solarSystem.SolarSystemName});
             }
 
             return rtnSystems;
         }
 
-        internal class SolarSystem
-        {
-            public string solarSystemName { get; set; }
-            public int solarSystemID { get; set; }
-        }
     }
 }
