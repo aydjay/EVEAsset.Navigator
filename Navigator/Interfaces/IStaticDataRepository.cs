@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Navigator.Interfaces
 {
-    internal interface IStaticDataRepository  
+    public interface IStaticDataRepository  
     {
         IEnumerable<SelectListItem> GetAllSystems();
     }

@@ -7,11 +7,14 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Navigator.Cache;
+using Navigator.DAL;
 using Navigator.Interfaces;
 using Navigator.MiddleWare;
+using Navigator.Repositories;
 using Newtonsoft.Json;
 
 namespace Navigator
@@ -63,7 +66,12 @@ namespace Navigator
             services.AddMemoryCache();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            var tranquilityContext = new TranquilityContext(new DbContextOptions<TranquilityContext>());
+            tranquilityContext.ConfigureServices(services, secrets.ConnectionString);
+
+            services.AddSingleton(typeof(TranquilityContext), tranquilityContext);
             services.AddSingleton<IUniverseCache, UniverseCache>();
+            services.AddSingleton<IStaticDataRepository, StaticDataRepository>();
             services.AddSingleton<IJumpCache, JumpCache>();
         }
 
@@ -101,5 +109,7 @@ namespace Navigator
     {
         public string ClientId { get; set; }
         public string SecretKey { get; set; }
+
+        public string ConnectionString { get; set; }
     }
 }

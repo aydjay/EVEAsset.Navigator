@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using EVEStandard;
 using Microsoft.Extensions.Caching.Memory;
 using Navigator.Consts;
+using Navigator.DAL;
 using Navigator.Interfaces;
 using Navigator.Models;
 using Navigator.Repositories;
@@ -16,9 +17,9 @@ namespace Navigator.Cache
         private readonly EVEStandardAPI _api;
         private readonly IMemoryCache _cache;
         private readonly SolarSystemRepository _solarSystemRepository;
-        private readonly IUniverseCache _universeCache;
+        private readonly TranquilityContext _universeCache;
 
-        public JumpCache(IMemoryCache cache, EVEStandardAPI api, IUniverseCache universeCache)
+        public JumpCache(IMemoryCache cache, EVEStandardAPI api, TranquilityContext universeCache)
         {
             _cache = cache;
             _api = api;
@@ -47,7 +48,7 @@ namespace Navigator.Cache
                 {
                     if (fromId != toId)
                     {
-                        var isAnySystemAWormhole = await IsAnySystemAWormhole(new List<int> {fromId, toId});
+                        var isAnySystemAWormhole = IsAnySystemAWormhole(new List<int> {fromId, toId});
 
                         if (isAnySystemAWormhole == false)
                         {
@@ -85,13 +86,14 @@ namespace Navigator.Cache
             return Task.FromResult(jumps.NavigatedSystems.Count);
         }
 
-        private async Task<bool> IsAnySystemAWormhole(List<int> ids)
+        private bool IsAnySystemAWormhole(List<int> ids)
         {
+            //Todo: Rework to get it back with one query rather than check each id individually.
             foreach (var id in ids)
             {
-                var system = await _universeCache.GetNameForId(id);
-
-                var result = _solarSystemRepository.IsWormhole(system);
+                var system = _universeCache.MapSolarSystems.First(x => x.SolarSystemId == id);
+                //Todo: Cross reference the region id the system is in as there is a set of regions which are just for WH's
+                var result = _solarSystemRepository.IsWormhole(system.SolarSystemName);
                 if (result)
                 {
                     return result;

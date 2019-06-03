@@ -1,19 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using EVEStandard.Enumerations;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Navigator.DAL;
 using Navigator.Interfaces;
 
 namespace Navigator.Repositories
 {
     public class StaticDataRepository : IStaticDataRepository
     {
+        private readonly TranquilityContext _dbContext;
         private readonly SolarSystemRepository _solarSystemRepository;
-        private readonly IUniverseCache _universeCache;
 
-        public StaticDataRepository(IUniverseCache universeCache)
+        public StaticDataRepository(IServiceProvider provider)
         {
-            _universeCache = universeCache;
+            _dbContext = (TranquilityContext) provider.GetService(typeof(TranquilityContext));
+
             _solarSystemRepository = new SolarSystemRepository();
         }
 
@@ -21,9 +23,9 @@ namespace Navigator.Repositories
         {
             var systems = new List<SelectListItem>();
 
-            foreach (var system in _universeCache.GetAllByCategory(CategoryEnum.solar_system).Where(x => !_solarSystemRepository.IsWormhole(x.Name)))
+            foreach (var system in _dbContext.MapSolarSystems.Where(x => !_solarSystemRepository.IsWormhole(x.SolarSystemName)))
             {
-                systems.Add(new SelectListItem(system.Name, system.Id.ToString()));
+                systems.Add(new SelectListItem(system.SolarSystemName, system.SolarSystemId.ToString()));
             }
 
             systems = systems.OrderBy(x => x.Text).ToList();

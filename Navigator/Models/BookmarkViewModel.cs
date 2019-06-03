@@ -1,9 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Navigator.Interfaces;
-using Navigator.Repositories;
 
 namespace Navigator.Models
 {
@@ -11,13 +9,13 @@ namespace Navigator.Models
     {
         private readonly IStaticDataRepository _repository;
 
-        public BookmarkViewModel(BookmarkSection personalBookmarks, BookmarkSection corpBookmarks, string system)
+        public BookmarkViewModel(BookmarkSection personalBookmarks, BookmarkSection corpBookmarks, string system, IStaticDataRepository repository)
         {
             PersonalBookmarks = personalBookmarks;
             CorpBookmarks = corpBookmarks;
             System = system;
 
-            _repository = new StaticDataRepository(PersonalBookmarks.UniverseCache);
+            _repository = repository;
         }
 
         public BookmarkSection PersonalBookmarks { get; set; }

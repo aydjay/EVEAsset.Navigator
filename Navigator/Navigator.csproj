@@ -27,4 +27,9 @@
     <None Include="wwwroot\Images\astronomy.svg" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Navigator.DAL\Navigator.DAL.csproj" />
+  </ItemGroup>
+
 </Project>
