@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace Navigator.DAL
 {
     //Taken from https://damienbod.com/2016/01/11/asp-net-5-with-postgresql-and-entity-framework-7/
-    public class DomainModelPostgreSqlContext : DbContext
+    public class NavigatorContext : DbContext
     {
-        public DomainModelPostgreSqlContext(DbContextOptions<DomainModelPostgreSqlContext> options) : base(options)
+        public NavigatorContext(DbContextOptions<NavigatorContext> options) : base(options)
         {
         }
 

@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Navigator.Cache;
+using Navigator.DAL;
 using Navigator.Interfaces;
 using Navigator.MiddleWare;
 using Newtonsoft.Json;
@@ -65,6 +66,9 @@ namespace Navigator
 
             services.AddSingleton<IUniverseCache, UniverseCache>();
             services.AddSingleton<IJumpCache, JumpCache>();
+
+            var tranquilityDbContext = new TranquilityContext(secrets.ConnectionString);
+            tranquilityDbContext.ConfigureServices(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,5 +105,7 @@ namespace Navigator
     {
         public string ClientId { get; set; }
         public string SecretKey { get; set; }
+
+        public string ConnectionString { get; set; }
     }
 }
