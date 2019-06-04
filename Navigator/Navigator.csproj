@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Navigator.DAL\Navigator.DAL.csproj" />
+    <ProjectReference Include="..\Navigator.Migrations\Navigator.Migrations.csproj" />
   </ItemGroup>
 
 </Project>

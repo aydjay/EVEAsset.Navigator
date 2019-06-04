@@ -12,6 +12,8 @@ namespace Navigator.DAL.Navigator
 
         public int From { get; set; }
         public int To { get; set; }
+        
+        public int RouteId { get; set; }
 
         public List<int> NavigatedSystems{ get; } = new List<int>();
     }

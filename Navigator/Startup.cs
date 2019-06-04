@@ -67,9 +67,13 @@ namespace Navigator
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             var tranquilityContext = new TranquilityContext(new DbContextOptions<TranquilityContext>());
-            tranquilityContext.ConfigureServices(services, secrets.ConnectionString);
+            tranquilityContext.ConfigureServices(services, secrets.SdeConnectionString);
+
+            var navigatorContext = new NavigatorContext(new DbContextOptions<NavigatorContext>());
+            navigatorContext.ConfigureServices(services, secrets.NavigatorConnectionString);
 
             services.AddSingleton(typeof(TranquilityContext), tranquilityContext);
+            services.AddSingleton(typeof(NavigatorContext), navigatorContext);
             services.AddSingleton<IUniverseCache, UniverseCache>();
             services.AddSingleton<IStaticDataRepository, StaticDataRepository>();
             services.AddSingleton<IJumpCache, JumpCache>();
@@ -110,6 +114,7 @@ namespace Navigator
         public string ClientId { get; set; }
         public string SecretKey { get; set; }
 
-        public string ConnectionString { get; set; }
+        public string SdeConnectionString { get; set; }
+        public string NavigatorConnectionString { get; set; }
     }
 }
