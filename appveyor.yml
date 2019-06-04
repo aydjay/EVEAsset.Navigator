@@ -14,4 +14,4 @@ artifacts:
 test:
   assemblies:
     only:
-      - '**\*.Tests.dll'
+      - Navigator.Tests.dll
