@@ -11,7 +11,5 @@ after_build:
   - dotnet publish -c Release -r linux-arm
 artifacts:
   - path: Navigator\bin\Release\netcoreapp2.2\linux-arm\publish
-test:
-  assemblies:
-    only:
-      - Navigator.Tests.dll
+test_script:
+  - dotnet test
