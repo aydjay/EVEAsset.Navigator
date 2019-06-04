@@ -12,4 +12,4 @@ after_build:
 artifacts:
   - path: Navigator\bin\Release\netcoreapp2.2\linux-arm\publish
 test_script:
-  - dotnet test
+  - dotnet test --logger:Appveyor

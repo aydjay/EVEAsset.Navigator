@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigator", "Navigator\Navi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigator.Tests", "Navigator.Tests\Navigator.Tests.csproj", "{47F85BD6-5821-4B31-AA7B-5EEB4E9AE0FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigator.DAL", "Navigator.DAL\Navigator.DAL.csproj", "{FC87654D-AF85-44AD-B205-A5C1476EF46A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigator.DAL", "Navigator.DAL\Navigator.DAL.csproj", "{FC87654D-AF85-44AD-B205-A5C1476EF46A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
