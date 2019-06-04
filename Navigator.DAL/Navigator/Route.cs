@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Navigator.Models
+namespace Navigator.DAL.Navigator
 {
     public class Route
     {

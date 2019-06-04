@@ -6,8 +6,8 @@ using EVEStandard;
 using Microsoft.Extensions.Caching.Memory;
 using Navigator.Consts;
 using Navigator.DAL;
+using Navigator.DAL.Navigator;
 using Navigator.Interfaces;
-using Navigator.Models;
 using Navigator.Repositories;
 
 namespace Navigator.Cache
