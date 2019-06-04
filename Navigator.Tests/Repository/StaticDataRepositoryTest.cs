@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Navigator.Consts;
@@ -18,7 +19,7 @@ namespace Navigator.Tests.Repository
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
-            var mockDbContext = new Mock<TranquilityContext>(MockBehavior.Default, "");
+            var mockDbContext = new Mock<TranquilityContext>(MockBehavior.Default);
             mockDbContext.Setup(x => x.MapSolarSystems).ReturnsDbSet(Systems());
 
             var mockServiceProvider = new Mock<IServiceProvider>();

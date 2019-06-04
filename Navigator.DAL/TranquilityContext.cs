@@ -10,6 +10,11 @@ namespace Navigator.DAL
     {
         private string _connectionString;
 
+        public TranquilityContext()
+        {
+            
+        }
+
         public TranquilityContext(DbContextOptions<TranquilityContext> options)
             : base(options)
         {
