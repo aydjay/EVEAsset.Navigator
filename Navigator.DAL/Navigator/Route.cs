@@ -8,6 +8,8 @@ namespace Navigator.DAL.Navigator
         {
             From = from;
             To = to;
+            
+            NavigatedSystems = new List<int>(); 
         }
 
         public int From { get; set; }
@@ -15,6 +17,7 @@ namespace Navigator.DAL.Navigator
         
         public int RouteId { get; set; }
 
-        public List<int> NavigatedSystems{ get; } = new List<int>();
+        
+        public List<int> NavigatedSystems { get; set; }
     }
 }
