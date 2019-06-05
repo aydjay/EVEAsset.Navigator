@@ -11,7 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Navigator.Consts;
 using Navigator.DAL;
 using Navigator.Interfaces;
-using Newtonsoft.Json;
 
 namespace Navigator.Cache
 {
@@ -36,6 +35,7 @@ namespace Navigator.Cache
                     Priority = CacheItemPriority.NeverRemove
                 });
 
+                //Prepopulate the in memory cache with all the known solar systems
                 _universeMapping.AddRange(GetSolarSystems());
             }
         }
@@ -77,45 +77,12 @@ namespace Navigator.Cache
 
             return Task.FromResult(_universeMapping.First(x => x.Id == id).Name);
         }
-
-        public void PrepopulateData(IEnumerable<UniverseIdsToNames> solarSystems)
-        {
-            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
-
-            _universeMapping.AddRange(solarSystems);
-        }
-
-        public IEnumerable<UniverseIdsToNames> GetAllByCategory(CategoryEnum category)
-        {
-            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
-
-            return _universeMapping.Where(x => x.Category == CategoryEnum.solar_system);
-        }
-
-        public Task<int> GetIdFromName(string name)
-        {
-            var _universeMapping = _cache.Get<List<UniverseIdsToNames>>(MemoryCacheKeys.UniverseMapping);
-
-            if (_universeMapping.Any(x => x.Name == name) == false)
-            {
-                return Task.FromResult(0);
-            }
-
-            return Task.FromResult(_universeMapping.First(x => x.Name == name).Id);
-        }
-
+        
         private IEnumerable<UniverseIdsToNames> GetSolarSystems()
         {
             var systems = _dbContext.MapSolarSystems;
 
-            var rtnSystems = new List<UniverseIdsToNames>();
-
-            foreach (var solarSystem in systems)
-            {
-                rtnSystems.Add(new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = solarSystem.SolarSystemId, Name = solarSystem.SolarSystemName});
-            }
-
-            return rtnSystems;
+            return systems.Select(solarSystem => new UniverseIdsToNames {Category = CategoryEnum.solar_system, Id = solarSystem.SolarSystemId, Name = solarSystem.SolarSystemName}).ToList();
         }
 
     }
