@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EVEStandard;
-using Microsoft.Extensions.Caching.Memory;
-using Navigator.Consts;
 using Navigator.DAL;
 using Navigator.DAL.Navigator;
 using Navigator.Interfaces;
@@ -15,34 +13,26 @@ namespace Navigator.Cache
     public class JumpCache : IJumpCache
     {
         private readonly EVEStandardAPI _api;
-        private readonly IMemoryCache _cache;
         private readonly SolarSystemRepository _solarSystemRepository;
-        private readonly TranquilityContext _universeCache;
+        private readonly TranquilityContext _tranquilityDbContext;
+        private readonly NavigatorContext _navigatorDbContext;
 
-        public JumpCache(IMemoryCache cache, EVEStandardAPI api, TranquilityContext universeCache)
+        public JumpCache(IServiceProvider services)
         {
-            _cache = cache;
-            _api = api;
-            _universeCache = universeCache;
-            _solarSystemRepository = new SolarSystemRepository();
+            _api = (EVEStandardAPI) services.GetService(typeof(EVEStandardAPI));
+            _tranquilityDbContext =   (TranquilityContext) services.GetService(typeof(TranquilityContext));
+            _navigatorDbContext =   (NavigatorContext) services.GetService(typeof(NavigatorContext));
 
-            if (!_cache.TryGetValue(MemoryCacheKeys.UniverseMapping, out List<Route> _routeMapping))
-            {
-                _routeMapping = new List<Route>();
-                _cache.Set(MemoryCacheKeys.JumpMapping, _routeMapping, new MemoryCacheEntryOptions
-                {
-                    Priority = CacheItemPriority.NeverRemove
-                });
-            }
+            _solarSystemRepository = new SolarSystemRepository();
         }
 
         public async Task<int> PopulateJumpCache(int fromId, int toId)
         {
-            var _routeMapping = _cache.Get<List<Route>>(MemoryCacheKeys.JumpMapping);
+            var route = _navigatorDbContext.Routes.FirstOrDefault(x => x.From == fromId && x.To == toId);
 
-            if (_routeMapping.Any(x => x.From == fromId && x.To == toId) == false)
+            if (route == null)
             {
-                var route = new Route(fromId, toId);
+                route = new Route(fromId, toId);
 
                 try
                 {
@@ -54,6 +44,13 @@ namespace Navigator.Cache
                         {
                             var result = await _api.Routes.GetRouteV1Async(route.From, route.To);
                             route.NavigatedSystems.AddRange(result.Model);
+
+                            List<Route> discoveredRoutes = ComputeRoutes(route);
+                            
+                            _navigatorDbContext.Routes.AddRange(discoveredRoutes);
+
+                            await _navigatorDbContext.SaveChangesAsync();
+
                         }
                     }
                 }
@@ -61,12 +58,26 @@ namespace Navigator.Cache
                 {
                     Console.Write(ex);
                 }
-
-
-                _routeMapping.Add(route);
             }
 
-            return await Task.FromResult(_routeMapping.First(x => x.From == fromId && x.To == toId).NavigatedSystems.Count);
+            return await Task.FromResult(route.NavigatedSystems.Count);
+        }
+
+        private List<Route> ComputeRoutes(Route route)
+        {
+            List<Route> rtnList = new List<Route> {route};
+
+            //First item in the route is the starting system
+            for (int i = 1; i < route.NavigatedSystems.Count; i++)
+            {
+                var discoveredRoute = new Route(route.NavigatedSystems[i], route.To);
+                
+                discoveredRoute.NavigatedSystems.AddRange(route.NavigatedSystems.GetRange(i, route.NavigatedSystems.Count- i));
+             
+                rtnList.Add(discoveredRoute);
+            }
+
+            return rtnList;
         }
 
         public Task<int> GetJumpsDistance(int fromId, int toId)
@@ -76,8 +87,7 @@ namespace Navigator.Cache
                 return Task.FromResult(0);
             }
 
-            var _routeMapping = _cache.Get<List<Route>>(MemoryCacheKeys.JumpMapping);
-            var jumps = _routeMapping.FirstOrDefault(x => x.From == fromId && x.To == toId);
+            var jumps = _navigatorDbContext.Routes.FirstOrDefault(x => x.From == fromId && x.To == toId);
             if (jumps == null)
             {
                 return Task.FromResult(0);
@@ -91,7 +101,7 @@ namespace Navigator.Cache
             //Todo: Rework to get it back with one query rather than check each id individually.
             foreach (var id in ids)
             {
-                var system = _universeCache.MapSolarSystems.First(x => x.SolarSystemId == id);
+                var system = _tranquilityDbContext.MapSolarSystems.First(x => x.SolarSystemId == id);
                 //Todo: Cross reference the region id the system is in as there is a set of regions which are just for WH's
                 var result = _solarSystemRepository.IsWormhole(system.SolarSystemName);
                 if (result)
