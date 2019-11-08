@@ -42,8 +42,11 @@ namespace Navigator
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options => { options.LoginPath = "/Auth/Login"; });
 
-
-            var secrets = JsonConvert.DeserializeObject<Secrets>(File.ReadAllText("secrets.json"));
+            if (File.Exists(SecretsFileName) == false)
+            {
+                throw new InvalidOperationException("You need to have a secrets file setup");
+            }
+            var secrets = JsonConvert.DeserializeObject<Secrets>(File.ReadAllText(SecretsFileName));
             // Register your application at: https://developers.eveonline.com/applications to obtain client ID and secret key and add them to user secrets
             // by right-clicking the solution and selecting Manage User Secrets.
             // Also, modify the callback URL in appsettings.json to match with your environment.
@@ -78,6 +81,8 @@ namespace Navigator
             services.AddSingleton<IStaticDataRepository, StaticDataRepository>();
             services.AddSingleton<IJumpCache, JumpCache>();
         }
+
+        private static string SecretsFileName { get; } = "secrets.json";
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
