@@ -1,0 +1,26 @@
+﻿@model Navigator.Models.LoyaltyViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+<div  class="d-flex justify-content-center">
+    <table class=".table">
+        <tbody>
+        <tr >
+            <th></th>
+            <th>Corporation Name</th>
+            <th>Quantity</th>
+        </tr>
+        @foreach (var loyaltyPoint in Model.LoyaltyPoints)
+        {
+            var corpImageUrl = $"https://image.eveonline.com/Corporation/{loyaltyPoint.CorpID}_64.jpg";
+
+            <tr >
+                <td><img src="@corpImageUrl"/>
+                <td> @loyaltyPoint.CorpName</td>
+                <td> @loyaltyPoint.LoyaltyPointQuantity</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
