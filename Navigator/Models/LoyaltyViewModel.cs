@@ -15,18 +15,30 @@ namespace Navigator.Models
         }
     }
 
-    public class LoyaltyPointDisplayWrapper
+    public class LoyaltyPointDisplayWrapper : DisplayWrapper<LoyaltyPoints>
     {
-        private InvUniqueNames npcCorpData;
-        public int LoyaltyPointQuantity;
-        public string CorpName => npcCorpData.ItemName;
-        public string CorpID;
+        private InvUniqueNames _npcCorpData;
 
-        public LoyaltyPointDisplayWrapper(InvUniqueNames npcCorpData, LoyaltyPoints lp)
+        public int LoyaltyPointQuantity => WrappedModel.Points;
+
+        public string CorpName => _npcCorpData.ItemName;
+
+        public LoyaltyPointDisplayWrapper(InvUniqueNames npcCorpData, LoyaltyPoints lp) 
+            : base(lp)
         {
-            this.npcCorpData = npcCorpData;
-            CorpID = lp.CorporationId.ToString();
-            this.LoyaltyPointQuantity = lp.Points;
+            _npcCorpData = npcCorpData;
         }
     }
+
+    public class DisplayWrapper<T>
+    {
+        public T WrappedModel;
+
+        public DisplayWrapper(T wrappedModel)
+        {
+            WrappedModel = wrappedModel;
+        }
+    }
+
+
 }

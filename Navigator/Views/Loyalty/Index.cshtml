@@ -13,11 +13,11 @@
         </tr>
         @foreach (var loyaltyPoint in Model.LoyaltyPoints)
         {
-            var corpImageUrl = $"https://image.eveonline.com/Corporation/{loyaltyPoint.CorpID}_64.jpg";
+            var corpImageUrl = $"https://image.eveonline.com/Corporation/{loyaltyPoint.WrappedModel.CorporationId}_64.jpg";
 
             <tr >
                 <td><img src="@corpImageUrl"/>
-                <td> @loyaltyPoint.CorpName</td>
+                <td> @Html.ActionLink(loyaltyPoint.CorpName, "LoyaltyStoreRewards", "Loyalty", new { loyaltyPoint.WrappedModel.CorporationId })</td>
                 <td> @loyaltyPoint.LoyaltyPointQuantity</td>
             </tr>
         }
