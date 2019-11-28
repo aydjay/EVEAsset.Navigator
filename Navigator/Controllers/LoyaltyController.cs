@@ -6,7 +6,7 @@ using EVEStandard;
 using EVEStandard.Models.API;
 using Microsoft.AspNetCore.Mvc;
 using Navigator.DAL;
-
+using Navigator.DAL.SDE;
 using Navigator.Models;
 
 namespace Navigator.Controllers
@@ -59,7 +59,7 @@ namespace Navigator.Controllers
             foreach (var loyaltyPoint in loyaltyRewards.Model)
             {
                 var itemName = _tranquilityDbContext.InvTypes.SingleOrDefault(x =>
-                    x.TypeId == loyaltyPoint.TypeId);
+                                   x.TypeId == loyaltyPoint.TypeId) ?? new InvTypes {TypeName = "N/a", TypeId = loyaltyPoint.TypeId};
 
                 loyaltyPointsWrapped.Add(new LoyaltyStoreOfferDisplayWrapper(itemName, loyaltyPoint));
             }
