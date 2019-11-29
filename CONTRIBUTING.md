@@ -4,7 +4,7 @@ This document will outline what is needed on a machine to start working on Eve N
 
 # Software
 
-Versions are correct at time of writting
+Versions are correct at time of writing
 
 * Install [Postgres](https://www.postgresql.org/download/) V 12.0.1
 * [Create](https://developers.eveonline.com/applications/create) a developer key on the eve developer site
