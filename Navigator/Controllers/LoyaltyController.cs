@@ -6,7 +6,7 @@ using EVEStandard;
 using EVEStandard.Models.API;
 using Microsoft.AspNetCore.Mvc;
 using Navigator.DAL;
-using Navigator.Interfaces;
+using Navigator.DAL.SDE;
 using Navigator.Models;
 
 namespace Navigator.Controllers
@@ -14,13 +14,10 @@ namespace Navigator.Controllers
     public class LoyaltyController : Controller
     {
         private readonly EVEStandardAPI _api;
-        private readonly IServiceProvider _provider;
-        private readonly IUniverseCache _universeCache;
-        private TranquilityContext _tranquilityDbContext;
+        private readonly TranquilityContext _tranquilityDbContext;
 
         public LoyaltyController(IServiceProvider provider)
         {
-            _provider = provider;
             _api = (EVEStandardAPI) provider.GetService(typeof(EVEStandardAPI));
             _tranquilityDbContext = (TranquilityContext) provider.GetService(typeof(TranquilityContext));
         }
@@ -43,14 +40,31 @@ namespace Navigator.Controllers
 
             foreach (var loyaltyPoint in loyaltyPoints.Model)
             {
-                var npcCorpData = _tranquilityDbContext.InvUniqueNames.SingleOrDefault(x =>
+                var npcCorpName = _tranquilityDbContext.InvUniqueNames.SingleOrDefault(x =>
                     x.ItemId == loyaltyPoint.CorporationId);
 
-                loyaltyPointsWrapped.Add(new LoyaltyPointDisplayWrapper(npcCorpData, loyaltyPoint));
-
-
+                loyaltyPointsWrapped.Add(new LoyaltyPointDisplayWrapper(npcCorpName, loyaltyPoint));
             }
+
             var viewModel = new LoyaltyViewModel(loyaltyPointsWrapped.OrderByDescending(x => x.LoyaltyPointQuantity).ToList());
+
+            return View(viewModel);
+        }
+
+        public async Task<IActionResult> LoyaltyStoreRewards(int corporationId)
+        {
+            var loyaltyRewards = await _api.Loyalty.ListLoyaltyStoreOffersV1Async(corporationId);
+            var loyaltyPointsWrapped = new List<ItemDisplayWrapper>();
+
+            foreach (var loyaltyPoint in loyaltyRewards.Model)
+            {
+                var itemName = _tranquilityDbContext.InvTypes.SingleOrDefault(x =>
+                                   x.TypeId == loyaltyPoint.TypeId) ?? new InvTypes {TypeName = "N/a", TypeId = loyaltyPoint.TypeId};
+
+                loyaltyPointsWrapped.Add(new ItemDisplayWrapper(itemName, loyaltyPoint));
+            }
+
+            var viewModel = new LoyaltyRewardsViewModel(loyaltyPointsWrapped);
 
             return View(viewModel);
         }

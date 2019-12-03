@@ -12,13 +12,11 @@ namespace Navigator.DAL
 
         public TranquilityContext()
         {
-            
         }
 
         public TranquilityContext(DbContextOptions<TranquilityContext> options)
             : base(options)
         {
-
         }
 
         public virtual DbSet<AgtAgentTypes> AgtAgentTypes { get; set; }
@@ -102,16 +100,15 @@ namespace Navigator.DAL
         public virtual DbSet<WarCombatZoneSystems> WarCombatZoneSystems { get; set; }
         public virtual DbSet<WarCombatZones> WarCombatZones { get; set; }
 
-        //NB: These tables look a) empty and b) no pk's set at all.
-        // Unable to generate entity type for table 'evesde.industryActivitySkills'. Please see the warning messages.
-        // Unable to generate entity type for table 'evesde.industryActivityProducts'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityRaces'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityProbabilities'. Please see the warning messages.
-        // Unable to generate entity type for table 'evesde.skinShip'. Please see the warning messages.
+        // Unable to generate entity type for table 'evesde.industryActivityProducts'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.certSkills'. Please see the warning messages.
+        // Unable to generate entity type for table 'evesde.industryActivitySkills'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.industryActivityMaterials'. Please see the warning messages.
+        // Unable to generate entity type for table 'evesde.skinShip'. Please see the warning messages.
         // Unable to generate entity type for table 'evesde.certMasteries'. Please see the warning messages.
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -1127,7 +1124,7 @@ namespace Navigator.DAL
 
                 entity.Property(e => e.TraitId)
                     .HasColumnName("traitID")
-                    .ValueGeneratedNever();
+                    .HasDefaultValueSql("nextval('evesde.\"invTraits_traitID_seq\"'::regclass)");
 
                 entity.Property(e => e.Bonus).HasColumnName("bonus");
 
@@ -2218,6 +2215,8 @@ namespace Navigator.DAL
 
                 entity.Property(e => e.FactionId).HasColumnName("factionID");
             });
+
+            modelBuilder.HasSequence<int>("invTraits_traitID_seq");
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services, string connection)
@@ -2230,4 +2229,3 @@ namespace Navigator.DAL
         }
     }
 }
-

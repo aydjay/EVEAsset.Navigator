@@ -1,0 +1,36 @@
+﻿@model Navigator.Models.LoyaltyRewardsViewModel
+
+@{
+    ViewData["Title"] = "Store Rewards";
+}
+
+<table class="table table-hover">
+    <thead>
+    <tr>
+        <th>Icon</th>
+        <th>Item</th>
+        <th>LP Cost</th>
+        <th>ISK Cost</th>
+        <th>AK Cost</th>
+        <th>Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var offer in Model.Offers)
+    {
+        var offerImage = $"https://imageserver.eveonline.com/Type/{offer.WrappedModel.TypeId}_64.png";
+        var offerItemMarketUrl = $"https://evemarketer.com/types/{offer.WrappedModel.TypeId}";
+
+        <tr>
+            <td>
+                <img src="@offerImage" />
+            </td>
+            <td><a href="@offerItemMarketUrl">@offer.ItemName</a></td>
+            <td>@offer.WrappedModel.LpCost.ToString("N")</td>
+            <td>@offer.WrappedModel.IskCost.ToString("C")</td>
+            <td>@offer.WrappedModel.AkCost</td>
+            <td>@offer.WrappedModel.Quantity</td>
+        </tr>
+    }
+    </tbody>
+</table>
