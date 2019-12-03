@@ -1,0 +1,134 @@
+[
+  {
+    "solarSystemID": 30003600,
+    "solarSystemName": "Agaullores",
+    "regionID": 10000044,
+    "regionName": "Solitude"
+  },
+  {
+    "solarSystemID": 30003606,
+    "solarSystemName": "Toustain",
+    "regionID": 10000044,
+    "regionName": "Solitude"
+  },
+  {
+    "solarSystemID": 30003470,
+    "solarSystemName": "Odebeinn",
+    "regionID": 10000042,
+    "regionName": "Metropolis"
+  },
+  {
+    "solarSystemID": 30003471,
+    "solarSystemName": "Konora",
+    "regionID": 10000042,
+    "regionName": "Metropolis"
+  },
+  {
+    "solarSystemID": 30000205,
+    "solarSystemName": "Obe",
+    "regionID": 10000002,
+    "regionName": "The Forge"
+  },
+  {
+    "solarSystemID": 30000171,
+    "solarSystemName": "Otitoh",
+    "regionID": 10000002,
+    "regionName": "The Forge"
+  },
+  {
+    "solarSystemID": 30003834,
+    "solarSystemName": "Chardalane",
+    "regionID": 10000048,
+    "regionName": "Placid"
+  },
+  {
+    "solarSystemID": 30003563,
+    "solarSystemName": "Misaba",
+    "regionID": 10000043,
+    "regionName": "Domain"
+  },
+  {
+    "solarSystemID": 30003557,
+    "solarSystemName": "Sieh",
+    "regionID": 10000043,
+    "regionName": "Domain"
+  },
+  {
+    "solarSystemID": 30001721,
+    "solarSystemName": "Saminer",
+    "regionID": 10000020,
+    "regionName": "Tash-Murkon"
+  },
+  {
+    "solarSystemID": 30001420,
+    "solarSystemName": "Daras",
+    "regionID": 10000016,
+    "regionName": "Lonetrek"
+  },
+  {
+    "solarSystemID": 30001422,
+    "solarSystemName": "Iitanmadan",
+    "regionID": 10000016,
+    "regionName": "Lonetrek"
+  },
+  {
+    "solarSystemID": 30001448,
+    "solarSystemName": "Hakonen",
+    "regionID": 10000016,
+    "regionName": "Lonetrek"
+  },
+  {
+    "solarSystemID": 30001439,
+    "solarSystemName": "Anin",
+    "regionID": 10000016,
+    "regionName": "Lonetrek"
+  },
+  {
+    "solarSystemID": 30045309,
+    "solarSystemName": "Villasen",
+    "regionID": 10000069,
+    "regionName": "Black Rise"
+  },
+  {
+    "solarSystemID": 30002420,
+    "solarSystemName": "Egbinger",
+    "regionID": 10000028,
+    "regionName": "Molden Heath"
+  },
+  {
+    "solarSystemID": 30002411,
+    "solarSystemName": "Skarkon",
+    "regionID": 10000028,
+    "regionName": "Molden Heath"
+  },
+  {
+    "solarSystemID": 30004309,
+    "solarSystemName": "Hophib",
+    "regionID": 10000054,
+    "regionName": "Aridia"
+  },
+  {
+    "solarSystemID": 30000019,
+    "solarSystemName": "Podion",
+    "regionID": 10000001,
+    "regionName": "Derelik"
+  },
+  {
+    "solarSystemID": 30000044,
+    "solarSystemName": "Faspera",
+    "regionID": 10000001,
+    "regionName": "Derelik"
+  },
+  {
+    "solarSystemID": 30003935,
+    "solarSystemName": "Irmalin",
+    "regionID": 10000049,
+    "regionName": "Khanid"
+  },
+  {
+    "solarSystemID": 30003897,
+    "solarSystemName": "Gehi",
+    "regionID": 10000049,
+    "regionName": "Khanid"
+  }
+]

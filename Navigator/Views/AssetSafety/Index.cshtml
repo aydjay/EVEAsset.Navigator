@@ -1,0 +1,24 @@
+﻿@model System.Collections.Generic.List<Navigator.Controllers.AssetSafetySystemViewModel>
+
+
+@{
+    ViewBag.Title = "Asset Safety";
+    Layout = "_Layout";
+}
+<table class="table table-hover">
+    <thead>
+    <tr >
+        <th>Region</th>
+        <th>System</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var system in Model)
+    {
+        <tr>
+            <td>@system.RegionName</td>
+            <td>@system.SolarSystemName</td>
+        </tr>
+            }
+</tbody>
+</table>

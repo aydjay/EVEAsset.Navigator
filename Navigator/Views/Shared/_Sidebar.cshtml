@@ -1,4 +1,5 @@
-﻿<!-- Sidebar -->
+﻿@using Navigator.Consts
+<!-- Sidebar -->
 <div class="bg-light border-right" id="sidebar-wrapper">
     <div class="sidebar-heading">
         
@@ -7,9 +8,13 @@
         </a>
     </div>
     <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="Bookmark" asp-action="Index">Bookmarks</a>
-        <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="Loyalty" asp-action="Index">LP</a>
-        <a class="list-group-item list-group-item-action bg-light" asp-area="" asp-controller="Credits" asp-action="Index">Credits</a>
-    </div>
+        @{
+            var itemStyling = "list-group-item list-group-item-action bg-light";
+        }
+
+        @Html.ActionLink("Bookmarks", "Index", "Bookmark", new { system = SolarSystemId.Jita}, new {Class = itemStyling})
+        @Html.ActionLink("Asset Safety", "Index", "AssetSafety", new { system = SolarSystemId.Jita}, new {Class = itemStyling})
+        @Html.ActionLink("LP", "Index", "Loyalty", null, new {Class = itemStyling})
+        @Html.ActionLink("Credits", "Index", "Credits", null, new {Class = itemStyling})    </div>
 </div>
 <!-- /#sidebar-wrapper -->

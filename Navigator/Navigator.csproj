@@ -18,6 +18,7 @@
 
 
   <ItemGroup>
+    <Folder Include="Pages\" />
     <Folder Include="Views\Secure\" />
     <Folder Include="Views\Bookmark\" />
   </ItemGroup>
