@@ -19,12 +19,13 @@
     @foreach (var offer in Model.Offers)
     {
         var offerImage = $"https://imageserver.eveonline.com/Type/{offer.WrappedModel.TypeId}_64.png";
+        var offerItemMarketUrl = $"https://evemarketer.com/types/{offer.WrappedModel.TypeId}";
+
         <tr>
             <td>
                 <img src="@offerImage" />
             </td>
-            @*TODO: https://evemarketer.com/types/28268*@
-            <td>@offer.ItemName</td>
+            <td><a href="@offerItemMarketUrl">@offer.ItemName</a></td>
             <td>@offer.WrappedModel.LpCost</td>
             @*TODO: Make application currency custom "123,123.00 ISK" format*@
             <td>@offer.WrappedModel.IskCost.ToString("C")</td>
