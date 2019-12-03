@@ -26,8 +26,7 @@
                 <img src="@offerImage" />
             </td>
             <td><a href="@offerItemMarketUrl">@offer.ItemName</a></td>
-            <td>@offer.WrappedModel.LpCost</td>
-            @*TODO: Make application currency custom "123,123.00 ISK" format*@
+            <td>@offer.WrappedModel.LpCost.ToString("N")</td>
             <td>@offer.WrappedModel.IskCost.ToString("C")</td>
             <td>@offer.WrappedModel.AkCost</td>
             <td>@offer.WrappedModel.Quantity</td>

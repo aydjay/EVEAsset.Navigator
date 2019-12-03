@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using EVEStandard;
 using EVEStandard.Enumerations;
@@ -97,6 +98,14 @@ namespace Navigator
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            var cultureInfo = new CultureInfo("en-GB");
+            cultureInfo.NumberFormat.CurrencySymbol = "ISK";
+            //pattern 3 is n $
+            cultureInfo.NumberFormat.CurrencyPositivePattern = 3;
+
+            CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+            CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
