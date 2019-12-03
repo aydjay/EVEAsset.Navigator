@@ -54,14 +54,14 @@ namespace Navigator.Controllers
         public async Task<IActionResult> LoyaltyStoreRewards(int corporationId)
         {
             var loyaltyRewards = await _api.Loyalty.ListLoyaltyStoreOffersV1Async(corporationId);
-            var loyaltyPointsWrapped = new List<LoyaltyStoreOfferDisplayWrapper>();
+            var loyaltyPointsWrapped = new List<ItemDisplayWrapper>();
 
             foreach (var loyaltyPoint in loyaltyRewards.Model)
             {
                 var itemName = _tranquilityDbContext.InvTypes.SingleOrDefault(x =>
                                    x.TypeId == loyaltyPoint.TypeId) ?? new InvTypes {TypeName = "N/a", TypeId = loyaltyPoint.TypeId};
 
-                loyaltyPointsWrapped.Add(new LoyaltyStoreOfferDisplayWrapper(itemName, loyaltyPoint));
+                loyaltyPointsWrapped.Add(new ItemDisplayWrapper(itemName, loyaltyPoint));
             }
 
             var viewModel = new LoyaltyRewardsViewModel(loyaltyPointsWrapped);
