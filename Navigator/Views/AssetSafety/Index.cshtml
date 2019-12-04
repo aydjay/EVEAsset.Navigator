@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.List<Navigator.Controllers.AssetSafetySystemViewModel>
+﻿@model List<Navigator.Controllers.AssetSafetySystemViewModel>
 
 
 @{
@@ -10,15 +10,30 @@
     <tr >
         <th>Region</th>
         <th>System</th>
+        <th>Linked Systems</th>
+        <th></th>
     </tr>
     </thead>
     <tbody>
     @foreach (var system in Model)
     {
+        var regionDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&region_name={system.RegionName}";
+        var systemDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&solarsystem_name={system.SolarSystemName}";
+
         <tr>
             <td>@system.RegionName</td>
             <td>@system.SolarSystemName</td>
+            <td>@system.SystemsServiced</td>
+            <td>
+                <button id="btnTradeFinderGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Trade Finder
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnTradeFinderGroup">
+                    <a class="dropdown-item" href="@regionDealFinderUrl">@system.RegionName</a>
+                    <a class="dropdown-item" href="@systemDealFinderUrl">@system.SolarSystemName</a>
+                </div>
+            </td>
         </tr>
-            }
-</tbody>
+    }
+    </tbody>
 </table>

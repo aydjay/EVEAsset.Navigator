@@ -3,132 +3,154 @@
     "solarSystemID": 30003600,
     "solarSystemName": "Agaullores",
     "regionID": 10000044,
-    "regionName": "Solitude"
+    "regionName": "Solitude",
+    "systemsServiced" :  44 
   },
   {
     "solarSystemID": 30003606,
     "solarSystemName": "Toustain",
     "regionID": 10000044,
-    "regionName": "Solitude"
+    "regionName": "Solitude",
+    "systemsServiced": 47
   },
   {
     "solarSystemID": 30003470,
     "solarSystemName": "Odebeinn",
     "regionID": 10000042,
-    "regionName": "Metropolis"
+    "regionName": "Metropolis",
+    "systemsServiced": 447
   },
   {
     "solarSystemID": 30003471,
     "solarSystemName": "Konora",
     "regionID": 10000042,
-    "regionName": "Metropolis"
+    "regionName": "Metropolis",
+    "systemsServiced": 228
   },
   {
     "solarSystemID": 30000205,
     "solarSystemName": "Obe",
     "regionID": 10000002,
-    "regionName": "The Forge"
+    "regionName": "The Forge",
+    "systemsServiced": 28
   },
   {
     "solarSystemID": 30000171,
     "solarSystemName": "Otitoh",
     "regionID": 10000002,
-    "regionName": "The Forge"
+    "regionName": "The Forge",
+    "systemsServiced": 77
   },
   {
     "solarSystemID": 30003834,
     "solarSystemName": "Chardalane",
     "regionID": 10000048,
-    "regionName": "Placid"
+    "regionName": "Placid",
+    "systemsServiced": 29
   },
   {
     "solarSystemID": 30003563,
     "solarSystemName": "Misaba",
     "regionID": 10000043,
-    "regionName": "Domain"
+    "regionName": "Domain",
+    "systemsServiced": 229
   },
   {
     "solarSystemID": 30003557,
     "solarSystemName": "Sieh",
     "regionID": 10000043,
-    "regionName": "Domain"
+    "regionName": "Domain",
+    "systemsServiced": 26
   },
   {
     "solarSystemID": 30001721,
     "solarSystemName": "Saminer",
     "regionID": 10000020,
-    "regionName": "Tash-Murkon"
+    "regionName": "Tash-Murkon",
+    "systemsServiced": 145
   },
   {
     "solarSystemID": 30001420,
     "solarSystemName": "Daras",
     "regionID": 10000016,
-    "regionName": "Lonetrek"
+    "regionName": "Lonetrek",
+    "systemsServiced": 194
   },
   {
     "solarSystemID": 30001422,
     "solarSystemName": "Iitanmadan",
     "regionID": 10000016,
-    "regionName": "Lonetrek"
+    "regionName": "Lonetrek",
+    "systemsServiced": 35
   },
   {
     "solarSystemID": 30001448,
     "solarSystemName": "Hakonen",
     "regionID": 10000016,
-    "regionName": "Lonetrek"
+    "regionName": "Lonetrek",
+    "systemsServiced": 91
   },
   {
     "solarSystemID": 30001439,
     "solarSystemName": "Anin",
     "regionID": 10000016,
-    "regionName": "Lonetrek"
+    "regionName": "Lonetrek",
+    "systemsServiced": 34
   },
   {
     "solarSystemID": 30045309,
     "solarSystemName": "Villasen",
     "regionID": 10000069,
-    "regionName": "Black Rise"
+    "regionName": "Black Rise",
+    "systemsServiced": 114
   },
   {
     "solarSystemID": 30002420,
     "solarSystemName": "Egbinger",
     "regionID": 10000028,
-    "regionName": "Molden Heath"
+    "regionName": "Molden Heath",
+    "systemsServiced": 293
   },
   {
     "solarSystemID": 30002411,
     "solarSystemName": "Skarkon",
     "regionID": 10000028,
-    "regionName": "Molden Heath"
+    "regionName": "Molden Heath",
+    "systemsServiced": 27
   },
   {
     "solarSystemID": 30004309,
     "solarSystemName": "Hophib",
     "regionID": 10000054,
-    "regionName": "Aridia"
+    "regionName": "Aridia",
+    "systemsServiced": 61
   },
   {
     "solarSystemID": 30000019,
     "solarSystemName": "Podion",
     "regionID": 10000001,
-    "regionName": "Derelik"
+    "regionName": "Derelik",
+    "systemsServiced": 558
   },
   {
     "solarSystemID": 30000044,
     "solarSystemName": "Faspera",
     "regionID": 10000001,
-    "regionName": "Derelik"
+    "regionName": "Derelik",
+    "systemsServiced": 68
   },
   {
     "solarSystemID": 30003935,
     "solarSystemName": "Irmalin",
     "regionID": 10000049,
-    "regionName": "Khanid"
+    "regionName": "Khanid",
+    "systemsServiced": 159
   },
   {
     "solarSystemID": 30003897,
     "solarSystemName": "Gehi",
     "regionID": 10000049,
-    "regionName": "Khanid"
+    "regionName": "Khanid",
+    "systemsServiced": 64
   }
 ]
