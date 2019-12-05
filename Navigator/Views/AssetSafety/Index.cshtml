@@ -10,7 +10,8 @@
     <tr >
         <th>Region</th>
         <th>System</th>
-        <th>Linked Systems</th>
+        <th>Serviced</th>
+        <th>Distance</th>
         <th></th>
     </tr>
     </thead>
@@ -19,11 +20,13 @@
     {
         var regionDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&region_name={system.RegionName}";
         var systemDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&solarsystem_name={system.SolarSystemName}";
-
+        var dotlanRegion = $"http://evemaps.dotlan.net/map/{system.RegionName}";
+        var dotlanSystem = dotlanRegion + $"/{system.SolarSystemName}";
         <tr>
-            <td>@system.RegionName</td>
-            <td>@system.SolarSystemName</td>
+            <td><a href="@dotlanRegion">@system.RegionName</a></td>
+            <td><a href="@dotlanSystem">@system.SolarSystemName</a></td>
             <td>@system.SystemsServiced</td>
+            <td>@system.NearestSystem</td>
             <td>
                 <button id="btnTradeFinderGroup" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Trade Finder
