@@ -71,12 +71,6 @@ namespace Navigator.Models
         public Region Region { get; set; }
     }
 
-    public class Region2
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
-
     public class DestinationSolarSystem
     {
         public int Id { get; set; }
@@ -84,6 +78,6 @@ namespace Navigator.Models
         public int ConstellationId { get; set; }
         public double Security { get; set; }
         public int RegionId { get; set; }
-        public Region2 Region { get; set; }
+        public Region Region { get; set; }
     }
 }
