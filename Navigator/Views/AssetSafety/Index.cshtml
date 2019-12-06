@@ -20,8 +20,10 @@
     {
         var regionDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&region_name={system.RegionName}";
         var systemDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&solarsystem_name={system.SolarSystemName}";
+        var regionMarketView = $"https://evemarketer.com/regions/{system.RegionId}";
         var dotlanRegion = $"http://evemaps.dotlan.net/map/{system.RegionName}";
         var dotlanSystem = dotlanRegion + $"/{system.SolarSystemName}";
+
         <tr>
             <td><a href="@dotlanRegion">@system.RegionName</a></td>
             <td><a href="@dotlanSystem">@system.SolarSystemName</a></td>
@@ -34,6 +36,7 @@
                 <div class="dropdown-menu" aria-labelledby="btnTradeFinderGroup">
                     <a class="dropdown-item" href="@regionDealFinderUrl">@system.RegionName</a>
                     <a class="dropdown-item" href="@systemDealFinderUrl">@system.SolarSystemName</a>
+                    <a class="dropdown-item" href="@regionMarketView">View @system.RegionName Market</a>
                 </div>
             </td>
         </tr>
