@@ -43,3 +43,14 @@ dotnet ef dbcontext scaffold "Host=localhost;Database=sde;Username=USERNAME;Pass
 ```
 
 Once the models have been rebuilt, carefully check the change set as the TranquilityContext will need to be adjusted after the scaffolding has run
+
+# Altering Navigator Models 
+
+Create the entities you want to store in Navigatoor.DAL\Navigator folder
+
+From the repository root at the command line:
+
+```bash
+dotnet ef migrations add SOMENAME -s Navigator\Navigator.csproj -p Navigator.Migrations\Navigator.Migrations.csproj --context NavigatorContext  
+dotnet ef database update -s Navigator\Navigator.csproj --context NavigatorContext  
+```
