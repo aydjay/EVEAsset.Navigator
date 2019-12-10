@@ -31,7 +31,7 @@ namespace Navigator.Controllers
 
             foreach (var system in systems)
             {
-                system.EveScoutData = await _eveScout.GetEveScoutData(system.SolarSystemName); 
+                system.EveScoutData = await _eveScout.GetEveScoutData(system.SolarSystemId, system.SolarSystemName); 
             }
 
             return View(systems);

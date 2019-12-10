@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20191206132719_eveScoutCacheable.cs" />
+    <Compile Remove="Migrations\20191206132719_eveScoutCacheable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Navigator.DAL\Navigator.DAL.csproj" />
   </ItemGroup>
 

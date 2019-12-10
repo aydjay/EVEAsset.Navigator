@@ -17,6 +17,7 @@ namespace Navigator.DAL
         }
 
         public DbSet<Route> Routes {get; set; }
+        public DbSet<ScoutData> EveScoutData {get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
