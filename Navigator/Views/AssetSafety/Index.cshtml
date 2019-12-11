@@ -21,7 +21,8 @@
         var regionDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&region_name={system.RegionName}";
         var systemDealFinderUrl = $"https://eve-marketdata.com/deal_finder3?margin=0.2&solarsystem_name={system.SolarSystemName}";
         var regionMarketView = $"https://evemarketer.com/regions/{system.RegionId}";
-        var dotlanRegion = $"http://evemaps.dotlan.net/map/{system.RegionName}";
+        var dotlanRegionName = system.RegionName.Replace(" ", "_");
+        var dotlanRegion = $"http://evemaps.dotlan.net/map/{dotlanRegionName}";
         var dotlanSystem = dotlanRegion + $"/{system.SolarSystemName}";
 
         <tr>
